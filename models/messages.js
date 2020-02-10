@@ -82,11 +82,11 @@ messages.getMessages = async (username = false) =>  {
         let results = false;
         if (!username)
             results = await mysql.runQuery(
-                'SELECT m.id, m.message, m.date_created, m.likes, m.username FROM messages AS m', [])
+                'SELECT m.id, m.message, m.date_created, m.likes, m.username FROM messages AS m ORDER BY date_created DESC', [])
         else
             results = await mysql.runQuery(
                 'SELECT m.id, m.message, m.date_created, m.likes, m.username, um.username AS liked ' +
-                'FROM messages AS m LEFT JOIN user_messages AS um ON m.id = um.message_id AND um.username = ?', username)
+                'FROM messages AS m LEFT JOIN user_messages AS um ON m.id = um.message_id AND um.username = ? ORDER BY date_created DESC', username)
         if (results.length == 0)
             return [false, results];
         return [true, results];
