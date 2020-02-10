@@ -22,7 +22,7 @@ user.register = async (newUser) => {
     if (!result[0] || result[1].length == 0)
         return [false, "That username is taken."];
 
-    user.id = createUserResult.insertId;
+    user.id = result.insertId;
 
     // Refrain from returning the password to the user.
     delete user.password;

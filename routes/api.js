@@ -5,7 +5,7 @@ var messages = require('../models/messages')
 
 /* GET users listing. */
 router.get('/', async (req, res, next) => {
-  res.send('API is responding!');
+  res.json('API is responding!');
 });
 
 router.post('/login', async (req, res, next) => {
@@ -20,6 +20,7 @@ router.post('/login', async (req, res, next) => {
 
 router.post('/register', async (req, res, next) => {
   try {
+    console.log("Request body:", req)
     let results = await user.register(req.body)
     res.json(results);
   } catch(error) {

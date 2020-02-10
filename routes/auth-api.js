@@ -8,7 +8,7 @@ router.use(passport.authenticate('bearer', {session: false}))
 
 /* GET users listing. */
 router.get('/', async (req, res, next) => {
-  res.json(['Auth API is responding! You are authenticated!']);
+  res.json('Auth API is responding! You are authenticated!');
 });
 
 router.get('/messages',
@@ -21,7 +21,6 @@ router.get('/messages',
       res.sendStatus(500)
     }
   })
-
 
 router.post('/create-message',
     async (req, res, next) => {

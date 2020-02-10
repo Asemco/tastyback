@@ -17,7 +17,7 @@ messages.getMessageList = async (user = false) =>  {
     else // Getting messages if you're authorized includes whether or not you've liked the message.
         result = await messages.getMessages(user.username);
     if (!result[0] || result[1].length == 0)
-        return [false, "The message could not be inserted. Please contact support!"];
+        return [false, "The messages could not be retrieved. Please contact support!"];
     
     let messageList = result[1];
     return [true, messageList];
@@ -25,21 +25,21 @@ messages.getMessageList = async (user = false) =>  {
 
 messages.createMessage = async (newMessage, user) =>  {
     // Confirm a message was sent and that the message is of required length.
-    let result = message.validate(newMessage);
+    let result = messages.validate(newMessage);
     if (!result[0])
         return result;
 
-    message.username = user.username;
-    message.message = newMessage.message;
-    message.date_created = new Date();
-    message.likes = 0;
+    messages.username = user.username;
+    messages.message = newMessage.message;
+    messages.date_created = new Date();
+    messages.likes = 0;
 
-    result = await messages.insertMessage(message);
+    result = await messages.insertMessage(messages);
 
     if (!result[0] || result[1].length == 0)
         return [false, "The message could not be inserted. Please contact support!"];
     
-    return [true, message];
+    return [true, messages];
 }
 
 messages.expressFeelings = async (messageId, user) =>  {
@@ -82,7 +82,7 @@ messages.getMessages = async (username = false) =>  {
         let results = false;
         if (!username)
             results = await mysql.runQuery(
-                'SELECT m.id, m.message, m.date_created, m.likes, m.username FROM messages', [])
+                'SELECT m.id, m.message, m.date_created, m.likes, m.username FROM messages AS m', [])
         else
             results = await mysql.runQuery(
                 'SELECT m.id, m.message, m.date_created, m.likes, m.username, um.username AS liked ' +
@@ -116,7 +116,7 @@ messages.insertMessage = async (message) => {
     try {
         let results = await mysql.runQuery(
             'INSERT INTO messages (username, message, date_created, likes) VALUES (?, ?, ?, ?)'
-            , [message.username, newMessage.message, newMessage.date_created, newMessage.likes]);
+            , [message.username, message.message, message.date_created, message.likes]);
         if (results.affectedRows == 0)
             return [false, results]
         return [true, results]
