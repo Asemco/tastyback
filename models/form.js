@@ -10,7 +10,7 @@ let form = {
     financial_institution: String,
     reason: String,
     status: String,
-    timestamp: String
+    last_modified: String
 }
 
 form.submitForm = async (assistForm) => {    
@@ -101,9 +101,9 @@ form.insertForm = async () =>  {
     }
 }
 
-form.updateStatus = async (id, status) =>  {
+form.updateStatus = async (form) =>  {
     try {
-        let results = await mysql.runQuery('UPDATE smartassist SET status = ? WHERE id = ?', [status, id])
+        let results = await mysql.runQuery('UPDATE smartassist SET status = ? WHERE id = ?', [form.status, form.id])
         if (results.affectedRows == 0)
             return [false, results]
         return [true, results]

@@ -20,7 +20,6 @@ router.post('/login', async (req, res, next) => {
 
 router.post('/register', async (req, res, next) => {
   try {
-    console.log("Request body:", req)
     let results = await user.register(req.body)
     res.json(results);
   } catch(error) {
@@ -31,7 +30,6 @@ router.post('/register', async (req, res, next) => {
 
 router.post('/submit', async (req, res, next) => {
   try {
-    console.log("Request body:", req)
     let results = await form.submitForm(req.body)
     res.json(results);
   } catch(error) {

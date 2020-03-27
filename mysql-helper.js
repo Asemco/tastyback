@@ -1,15 +1,13 @@
 var mysql = require('mysql')
+var auth = require('./local-variables.js')
+
 
 mysql.createPool({
-
+    
 })
 
-const connection = mysql.createPool({
-    host: 'localhost',
-    user: 'smartuser',
-    password: `nQBoZ\Ndj|:FnG#84k=xna0O:o\Bj81g\8g:sfPT4GqB+0qCH:BndE6i#~:mS/T&`,
-    database: 'smartsaver'
-  })
+// local-variables.js looks like this internally: module.exports = {mysql_config: {host: '', user: '', password: ``, database: ''}};
+const connection = mysql.createPool(auth.mysql_config)
 
 
 mysql.runQuery = (query, params) => {

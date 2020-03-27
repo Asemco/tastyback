@@ -36,8 +36,7 @@ router.post('/getFormByEmail',
 router.post('/updateFormStatus',
     async (req, res, next) => {
     try {
-      // console.log(req.user);
-      let results = await form.updateStatus(req.body, req.user)
+      let results = await form.updateStatus(req.body)
       res.json(results);
     } catch(error) {
       console.log("Error occurred attempting to Logout |", error);
