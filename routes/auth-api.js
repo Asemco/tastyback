@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport')
 var user = require('../models/user')
-var messages = require('../models/messages')
+var form = require('../models/form')
 
 router.use(passport.authenticate('bearer', {session: false}))
 
@@ -11,10 +11,10 @@ router.get('/', async (req, res, next) => {
   res.json('Auth API is responding! You are authenticated!');
 });
 
-router.get('/messages',
+router.get('/getForms',
     async (req, res, next) => {
     try {
-      let results = await messages.getMessageList(req.user)
+      let results = await form.getForms(req.user)
       res.json(results);
     } catch(error) {
       console.log("Error occurred attempting to Logout |", error);
@@ -22,10 +22,10 @@ router.get('/messages',
     }
   })
 
-router.post('/create-message',
+router.post('/getFormByEmail',
     async (req, res, next) => {
     try {
-      let results = await messages.createMessage(req.body, req.user)
+      let results = await form.getFormByEmail(req.body, req.user)
       res.json(results);
     } catch(error) {
       console.log("Error occurred attempting to Logout |", error);
@@ -33,11 +33,11 @@ router.post('/create-message',
     }
   })
 
-router.post('/express-feelings',
+router.post('/updateFormStatus',
     async (req, res, next) => {
     try {
       // console.log(req.user);
-      let results = await messages.expressFeelings(req.body, req.user)
+      let results = await form.updateStatus(req.body, req.user)
       res.json(results);
     } catch(error) {
       console.log("Error occurred attempting to Logout |", error);

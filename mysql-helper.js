@@ -5,10 +5,10 @@ mysql.createPool({
 })
 
 const connection = mysql.createPool({
-    host: 'us-cdbr-iron-east-04.cleardb.net',
-    user: 'b130b122610560',
-    password: '284d61f6',
-    database: 'heroku_ac9e59e335d0448'
+    host: 'localhost',
+    user: 'smartuser',
+    password: `nQBoZ\Ndj|:FnG#84k=xna0O:o\Bj81g\8g:sfPT4GqB+0qCH:BndE6i#~:mS/T&`,
+    database: 'smartsaver'
   })
 
 

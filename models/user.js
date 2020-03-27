@@ -110,19 +110,6 @@ user.removeToken = (user) =>  {
     user.token = "";
 }
 
-user.getUserByUsername = async (username) =>  {
-    try {
-        let results = await mysql.runQuery('SELECT * FROM users WHERE username = ?', username)
-        if (results.length == 0)
-            return [false, results];
-        return [true, results];
-    } catch (excep) {
-        let err = "Failed to select a user |";
-        console.log(err, excep);
-        return [false, err];
-    }
-}
-
 user.getUserByToken = async (token) =>  {
     try {
         let results = await mysql.runQuery('SELECT * FROM users WHERE token = ?', token)
