@@ -112,7 +112,7 @@ user.removeToken = (user) =>  {
 
 user.getUserByUsername = async (username) =>  {
     try {
-        let results = await mysql.runQuery('SELECT * FROM users WHERE username = ?', username)
+        let results = await mysql.runQuery('SELECT * FROM users WHERE LOWER(username) = LOWER(?)', username)
         if (results.length == 0)
             return [false, results];
         return [true, results];
@@ -152,7 +152,7 @@ user.updateToken = async (user) =>  {
 
 user.createUser = async (user) =>  {
     try {
-        let results = await mysql.runQuery('INSERT INTO users (username, password, token) VALUES (?, ?, ?)', [user.username, user.password, user.token]);
+        let results = await mysql.runQuery('INSERT INTO users (username, password, token) VALUES (LOWER(?), ?, ?)', [user.username, user.password, user.token]);
         if (results.affectedRows == 0)
             return [false, results]
         return [true, results]
